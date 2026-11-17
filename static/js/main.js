@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "AI Agency Operating System",
             description: "An enterprise-grade autonomous workflow orchestration engine executing a 16-stage deterministic pipeline. Features automated BANT lead qualification, Gemini-powered proposal generation, human-in-the-loop approval gates, dynamic revenue attribution, and real-time Google Sheets audit synchronization.",
             tech_stack: "Next.js, TypeScript, Prisma ORM, SQLite, Gemini AI, Google Sheets API, Slack Webhooks, Vercel",
-            github_url: "https://github.com/hhafizriazahmad-arch/AI-agency-operating-system",
+            github_url: "https://github.com/riazahmadhafizz-source/AI-agency-operating-system",
             live_url: "https://ai-agency-operating-system-gamma.vercel.app",
             icon_type: "cpu"
         },
@@ -161,15 +161,15 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "AI Lead Intelligence System",
             description: "An automated B2B lead generation pipeline engineered to identify, enrich, and qualify profiles of founders and C-level executives. Built on FastAPI and Gemini AI for high-impact prospect research.",
             tech_stack: "Python, FastAPI, Playwright, Gemini AI, HubSpot API, Slack Webhooks, Vercel",
-            github_url: "https://github.com/hhafizriazahmad-arch/ai-lead-intelligence-system",
-            live_url: "https://ai-lead-intelligence-system.vercel.app",
+            github_url: "https://github.com/riazahmadhafizz-source/ai-lead-intelligence-system",
+            live_url: "https://ai-lead-intelligence-system-two.vercel.app",
             icon_type: "database"
         },
         {
             title: "Autonomous AI Conversational Agent",
             description: "A responsive AI chatbot platform engineered with Google Gemini AI integration, contextual knowledge-base retrieval, automated multi-turn query handling, and conversational response validation. Features automated fallback handlers, conversation history tracking, and serverless edge deployment.",
             tech_stack: "JavaScript, Node.js, Express, Gemini AI, Knowledge Retrieval, Vercel",
-            github_url: "https://github.com/hhafizriazahmad-arch/chat-bot",
+            github_url: "https://github.com/riazahmadhafizz-source/chat-bot",
             live_url: "https://chat-bot-chi-wine.vercel.app",
             icon_type: "chat"
         },
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "Digital Marketing Automation Suite",
             description: "Full-stack digital marketing platform featuring an interactive dynamic UI, serverless backend integrations, and automated lead intelligence data pipelines.",
             tech_stack: "Full-Stack Web Dev, JavaScript, Python, REST API, HTML5/CSS3, Vercel",
-            github_url: "https://github.com/hhafizriazahmad-arch/digital-marketing",
+            github_url: "https://github.com/riazahmadhafizz-source/digital-marketing",
             live_url: "https://digital-marketing-sand.vercel.app",
             icon_type: "cpu"
         },
@@ -185,9 +185,17 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "Onboarding Automation Workflow",
             description: "An enterprise-grade automation workflow triggered by Typeform submissions. It automatically feeds user profiles to Google Sheets, creates dedicated workspaces, and triggers real-time notifications via Slack webhooks.",
             tech_stack: "Python, APScheduler, Webhooks, Google Sheets API, Slack Webhooks",
-            github_url: "https://github.com/hhafizriazahmad-arch/onboarding-automation-system",
-            live_url: null,
+            github_url: "https://github.com/riazahmadhafizz-source/onboarding-automation-system",
+            live_url: "https://onboarding-automation-system.vercel.app",
             icon_type: "cpu"
+        },
+        {
+            title: "Personal Brand Website",
+            description: "A mobile-first personal brand and portfolio site with editorial typography, a filterable project showcase, Zod-validated contact form, WCAG 2.2 AA accessibility, and full SEO metadata.",
+            tech_stack: "React, TypeScript, Vite, Tailwind CSS, Framer Motion, Vitest, Vercel",
+            github_url: "https://github.com/riazahmadhafizz-source/hafiz-riaz-website",
+            live_url: "https://hafiz-riaz-website.vercel.app",
+            icon_type: "default"
         }
     ];
 
@@ -367,7 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Contact Form error:', err);
                 const displayMsg = (err && typeof err.message === 'string' && err.message !== '[object Object]')
                     ? err.message
-                    : 'Something went wrong. Please check your connection or email me directly at hafizriaz.ai@gmail.com.';
+                    : 'Something went wrong. Please check your connection or email me directly at riazahmadhafizz@gmail.com.';
                 notification.className = 'block mb-6 p-4 rounded-xl border border-red-500/30 bg-red-500/10 text-red-400 font-medium';
                 notification.textContent = displayMsg;
             })
@@ -577,7 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) {
             console.error('Chat error:', err);
             hideTypingIndicator();
-            const fallbackMsg = "Something went wrong on my end. Feel free to reach me directly at hafizriaz.ai@gmail.com or try again.";
+            const fallbackMsg = "Something went wrong on my end. Feel free to reach me directly at riazahmadhafizz@gmail.com or try again.";
             if (messageBubbleDiv) {
                 messageBubbleDiv.innerHTML = fallbackMsg;
             } else {
