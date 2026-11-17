@@ -43,11 +43,11 @@ class PortfolioSEOTestCase(unittest.TestCase):
         html = response.text
 
         # Canonical tag
-        expected_canonical = '<link rel="canonical" href="https://portfolio-website-ten-lyart-11.vercel.app/">'
+        expected_canonical = '<link rel="canonical" href="https://portfolio-website-hafiz-riaz.vercel.app/">'
         self.assertIn(expected_canonical, html)
 
         # OG URL
-        self.assertIn('<meta property="og:url" content="https://portfolio-website-ten-lyart-11.vercel.app/">', html)
+        self.assertIn('<meta property="og:url" content="https://portfolio-website-hafiz-riaz.vercel.app/">', html)
         self.assertIn('<meta property="og:title" content="Riaz Ahmad | AI Automation Engineer & Developer">', html)
         self.assertIn('meta property="og:image"', html)
 
@@ -80,7 +80,7 @@ class PortfolioSEOTestCase(unittest.TestCase):
         person = next(item for item in graph if item.get("@type") == "Person")
         self.assertEqual(person.get("name"), "Riaz Ahmad")
         self.assertEqual(person.get("jobTitle"), "AI Automation Engineer & Developer")
-        self.assertIn("https://github.com/hhafizriazahmad-arch", person.get("sameAs", []))
+        self.assertIn("https://github.com/riazahmadhafizz-source", person.get("sameAs", []))
 
     def test_heading_hierarchy_and_h1(self):
         """Verify presence of single appropriate primary H1 and logical H2 sections."""
@@ -126,7 +126,7 @@ class PortfolioSEOTestCase(unittest.TestCase):
         self.assertIn("Allow: /", body)
         self.assertIn("Allow: /static/", body)
         self.assertIn("Disallow: /api/", body)
-        self.assertIn("Sitemap: https://portfolio-website-ten-lyart-11.vercel.app/sitemap.xml", body)
+        self.assertIn("Sitemap: https://portfolio-website-hafiz-riaz.vercel.app/sitemap.xml", body)
 
     def test_sitemap_xml(self):
         """Test /sitemap.xml endpoint and XML structure."""
@@ -138,7 +138,7 @@ class PortfolioSEOTestCase(unittest.TestCase):
         root = ET.fromstring(response.text)
         namespaces = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
         locs = [loc.text for loc in root.findall(".//s:loc", namespaces)]
-        self.assertIn("https://portfolio-website-ten-lyart-11.vercel.app/", locs)
+        self.assertIn("https://portfolio-website-hafiz-riaz.vercel.app/", locs)
 
     def test_projects_api_endpoint(self):
         """Test /api/projects returns the 5 seeded projects with correct schemas."""
@@ -146,7 +146,7 @@ class PortfolioSEOTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         projects = response.json()
         self.assertIsInstance(projects, list)
-        self.assertGreaterEqual(len(projects), 5)
+        self.assertGreaterEqual(len(projects), 6)
 
         titles = [p.get("title") for p in projects]
         self.assertIn("AI Agency Operating System", titles)
