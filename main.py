@@ -5,7 +5,8 @@ import re
 import asyncio
 from datetime import datetime
 from typing import List, Optional
-from fastapi import FastAPI, Depends, HTTPException, status, Request
+from fastapi import FastAPI, Depends, HTTPException, status, Request, Header
+import secrets
 from fastapi.responses import FileResponse, StreamingResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -177,6 +178,12 @@ async def handle_cache_headers(request: Request, call_next):
         response.headers["Expires"] = "0"
     return response
 
+def require_admin(x_admin_key: Optional[str] = Header(default=None)):
+    """Protect admin endpoints. Requires header X-Admin-Key matching the ADMIN_API_KEY env var."""
+    expected = os.getenv("ADMIN_API_KEY")
+    if not expected or not x_admin_key or not secrets.compare_digest(x_admin_key, expected):
+        raise HTTPException(status_code=401, detail="Unauthorized")
+
 def create_audit_log_internal(db: Session, action: str, details: Optional[str] = None, ip_address: Optional[str] = None):
     """Helper to record audit logs safely."""
     try:
@@ -201,7 +208,7 @@ def seed_settings():
         default_settings = [
             {"key": "site_name", "value": "HR Autonomous", "description": "Platform brand name"},
             {"key": "owner_name", "value": "Riaz Ahmad", "description": "Founder & AI Automation Engineer"},
-            {"key": "contact_email", "value": "hafizriaz.ai@gmail.com", "description": "Primary contact email"},
+            {"key": "contact_email", "value": "riazahmadhafizz@gmail.com", "description": "Primary contact email"},
             {"key": "maintenance_mode", "value": "false", "description": "System maintenance mode flag"},
             {"key": "ai_assistant_enabled", "value": "true", "description": "Conversational Gemini AI toggle"},
             {"key": "theme", "value": "dark", "description": "Default UI theme"}
@@ -232,7 +239,7 @@ def seed_projects():
                 "title": "AI Agency Operating System",
                 "description": "An enterprise-grade autonomous workflow orchestration engine executing a 16-stage deterministic pipeline. Features automated BANT lead qualification, Gemini-powered proposal generation, human-in-the-loop approval gates, dynamic revenue attribution, and real-time Google Sheets audit synchronization.",
                 "tech_stack": "Next.js, TypeScript, Prisma ORM, SQLite, Gemini AI, Google Sheets API, Slack Webhooks, Vercel",
-                "github_url": "https://github.com/hhafizriazahmad-arch/AI-agency-operating-system",
+                "github_url": "https://github.com/riazahmadhafizz-source/AI-agency-operating-system",
                 "live_url": "https://ai-agency-operating-system-gamma.vercel.app",
                 "icon_type": "cpu"
             },
@@ -240,15 +247,15 @@ def seed_projects():
                 "title": "AI Lead Intelligence System",
                 "description": "An automated B2B lead generation pipeline engineered to identify, enrich, and qualify profiles of founders and C-level executives. Built on FastAPI and Gemini AI for high-impact prospect research.",
                 "tech_stack": "Python, FastAPI, Playwright, Gemini AI, HubSpot API, Slack Webhooks, Vercel",
-                "github_url": "https://github.com/hhafizriazahmad-arch/ai-lead-intelligence-system",
-                "live_url": "https://ai-lead-intelligence-system.vercel.app",
+                "github_url": "https://github.com/riazahmadhafizz-source/ai-lead-intelligence-system",
+                "live_url": "https://ai-lead-intelligence-system-two.vercel.app",
                 "icon_type": "database"
             },
             {
                 "title": "Autonomous AI Conversational Agent",
                 "description": "A responsive AI chatbot platform engineered with Google Gemini AI integration, contextual knowledge-base retrieval, automated multi-turn query handling, and conversational response validation. Features automated fallback handlers, conversation history tracking, and serverless edge deployment.",
                 "tech_stack": "JavaScript, Node.js, Express, Gemini AI, Knowledge Retrieval, Vercel",
-                "github_url": "https://github.com/hhafizriazahmad-arch/chat-bot",
+                "github_url": "https://github.com/riazahmadhafizz-source/chat-bot",
                 "live_url": "https://chat-bot-chi-wine.vercel.app",
                 "icon_type": "chat"
             },
@@ -256,7 +263,7 @@ def seed_projects():
                 "title": "Digital Marketing Automation Suite",
                 "description": "Full-stack digital marketing platform featuring an interactive dynamic UI, serverless backend integrations, and automated lead intelligence data pipelines.",
                 "tech_stack": "Full-Stack Web Dev, JavaScript, Python, REST API, HTML5/CSS3, Vercel",
-                "github_url": "https://github.com/hhafizriazahmad-arch/digital-marketing",
+                "github_url": "https://github.com/riazahmadhafizz-source/digital-marketing",
                 "live_url": "https://digital-marketing-sand.vercel.app",
                 "icon_type": "cpu"
             },
@@ -264,9 +271,17 @@ def seed_projects():
                 "title": "Onboarding Automation Workflow",
                 "description": "An enterprise-grade automation workflow triggered by Typeform submissions. It automatically feeds user profiles to Google Sheets, creates dedicated workspaces, and triggers real-time notifications via Slack webhooks.",
                 "tech_stack": "Python, APScheduler, Webhooks, Google Sheets API, Slack Webhooks",
-                "github_url": "https://github.com/hhafizriazahmad-arch/onboarding-automation-system",
-                "live_url": None,
+                "github_url": "https://github.com/riazahmadhafizz-source/onboarding-automation-system",
+                "live_url": "https://onboarding-automation-system.vercel.app",
                 "icon_type": "cpu"
+            },
+            {
+                "title": "Personal Brand Website",
+                "description": "A mobile-first personal brand and portfolio site with editorial typography, a filterable project showcase, Zod-validated contact form, WCAG 2.2 AA accessibility, and full SEO metadata.",
+                "tech_stack": "React, TypeScript, Vite, Tailwind CSS, Framer Motion, Vitest, Vercel",
+                "github_url": "https://github.com/riazahmadhafizz-source/hafiz-riaz-website",
+                "live_url": "https://hafiz-riaz-website.vercel.app",
+                "icon_type": "default"
             }
         ]
         for p_data in default_projects:
@@ -309,7 +324,7 @@ def get_projects(db: Session = Depends(get_db)):
     """Fetch all projects from the database, auto-seeding if empty or missing updated projects."""
     try:
         projects = db.query(models.Project).all()
-        if not projects or len(projects) < 5:
+        if not projects or len(projects) < 6:
             seed_projects()
             projects = db.query(models.Project).all()
         return projects
@@ -320,7 +335,7 @@ def get_projects(db: Session = Depends(get_db)):
 # -----------------------------------------------------------------------------
 # API Routes: Approvals Workflow
 # -----------------------------------------------------------------------------
-@app.get("/api/approvals", response_model=List[schemas.ApprovalResponse])
+@app.get("/api/approvals", dependencies=[Depends(require_admin)], response_model=List[schemas.ApprovalResponse])
 def list_approvals(status: Optional[str] = None, db: Session = Depends(get_db)):
     """Fetch approval workflow requests with optional status filtering ('pending', 'approved', 'rejected')."""
     try:
@@ -332,7 +347,7 @@ def list_approvals(status: Optional[str] = None, db: Session = Depends(get_db)):
         print(f"Error fetching approvals: {e}")
         raise HTTPException(status_code=500, detail="Database query failed while fetching approvals.")
 
-@app.post("/api/approvals", response_model=schemas.ApprovalResponse, status_code=status.HTTP_201_CREATED)
+@app.post("/api/approvals", dependencies=[Depends(require_admin)], response_model=schemas.ApprovalResponse, status_code=status.HTTP_201_CREATED)
 def create_approval(approval: schemas.ApprovalCreate, request: Request, db: Session = Depends(get_db)):
     """Create a new approval workflow request."""
     try:
@@ -355,7 +370,7 @@ def create_approval(approval: schemas.ApprovalCreate, request: Request, db: Sess
         print(f"Error creating approval: {e}")
         raise HTTPException(status_code=500, detail="Failed to create approval request.")
 
-@app.get("/api/approvals/{approval_id}", response_model=schemas.ApprovalResponse)
+@app.get("/api/approvals/{approval_id}", dependencies=[Depends(require_admin)], response_model=schemas.ApprovalResponse)
 def get_approval(approval_id: int, db: Session = Depends(get_db)):
     """Retrieve details of a specific approval request by ID."""
     db_approval = db.query(models.Approval).filter(models.Approval.id == approval_id).first()
@@ -363,7 +378,7 @@ def get_approval(approval_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail=f"Approval with ID {approval_id} not found.")
     return db_approval
 
-@app.patch("/api/approvals/{approval_id}", response_model=schemas.ApprovalResponse)
+@app.patch("/api/approvals/{approval_id}", dependencies=[Depends(require_admin)], response_model=schemas.ApprovalResponse)
 def update_approval(approval_id: int, update_data: schemas.ApprovalUpdate, request: Request, db: Session = Depends(get_db)):
     """Update approval status (approve/reject), approver, or comments."""
     db_approval = db.query(models.Approval).filter(models.Approval.id == approval_id).first()
@@ -400,7 +415,7 @@ def update_approval(approval_id: int, update_data: schemas.ApprovalUpdate, reque
         print(f"Error updating approval #{approval_id}: {e}")
         raise HTTPException(status_code=500, detail="Failed to update approval request.")
 
-@app.delete("/api/approvals/{approval_id}", status_code=status.HTTP_200_OK)
+@app.delete("/api/approvals/{approval_id}", dependencies=[Depends(require_admin)], status_code=status.HTTP_200_OK)
 def delete_approval(approval_id: int, request: Request, db: Session = Depends(get_db)):
     """Delete an approval record."""
     db_approval = db.query(models.Approval).filter(models.Approval.id == approval_id).first()
@@ -423,10 +438,10 @@ def delete_approval(approval_id: int, request: Request, db: Session = Depends(ge
 # -----------------------------------------------------------------------------
 def forward_lead_to_webhook(name: str, email: str, subject: str, message: str) -> bool:
     """Forward contact/lead details to Google Apps Script Webhook."""
-    webhook_url = os.getenv(
-        "GOOGLE_APPS_SCRIPT_WEBHOOK_URL",
-        "https://script.google.com/macros/s/AKfycbwRw_vv_nKvnHr8JDp_cYR7xV-JHU6Qr5qOmUCmuy_J34SR0RZLpJ0D1cvwhFn_tFNiLw/exec"
-    )
+    webhook_url = os.getenv("GOOGLE_APPS_SCRIPT_WEBHOOK_URL")
+    if not webhook_url:
+        print("GOOGLE_APPS_SCRIPT_WEBHOOK_URL not set; skipping lead forwarding.")
+        return False
     payload = json.dumps({
         "name": name,
         "email": email,
@@ -682,7 +697,7 @@ def get_settings(db: Session = Depends(get_db)):
         print(f"Error fetching settings: {e}")
         return []
 
-@app.put("/api/settings/{key}", response_model=schemas.SettingResponse)
+@app.put("/api/settings/{key}", dependencies=[Depends(require_admin)], response_model=schemas.SettingResponse)
 def update_setting(key: str, update: schemas.SettingUpdate, request: Request, db: Session = Depends(get_db)):
     """Update a specific setting by key."""
     setting = db.query(models.Setting).filter_by(key=key).first()
@@ -745,7 +760,7 @@ def get_crm_status(db: Session = Depends(get_db)):
 # -----------------------------------------------------------------------------
 # API Routes: Audit Logs
 # -----------------------------------------------------------------------------
-@app.get("/api/audit-logs", response_model=List[schemas.AuditLogResponse])
+@app.get("/api/audit-logs", dependencies=[Depends(require_admin)], response_model=List[schemas.AuditLogResponse])
 def get_audit_logs(limit: int = 50, db: Session = Depends(get_db)):
     """Fetch system audit logs."""
     try:
@@ -754,7 +769,7 @@ def get_audit_logs(limit: int = 50, db: Session = Depends(get_db)):
         print(f"Error fetching audit logs: {e}")
         return []
 
-@app.post("/api/audit-logs", response_model=schemas.AuditLogResponse, status_code=status.HTTP_201_CREATED)
+@app.post("/api/audit-logs", dependencies=[Depends(require_admin)], response_model=schemas.AuditLogResponse, status_code=status.HTTP_201_CREATED)
 def create_audit_log_endpoint(log_data: schemas.AuditLogCreate, request: Request, db: Session = Depends(get_db)):
     """Create a manual audit log entry."""
     client_ip = log_data.ip_address or (request.client.host if request.client else "unknown")
@@ -771,13 +786,13 @@ Allow: /
 Allow: /static/
 Disallow: /api/
 
-Sitemap: https://portfolio-website-ten-lyart-11.vercel.app/sitemap.xml
+Sitemap: https://portfolio-website-hafiz-riaz.vercel.app/sitemap.xml
 """
 
 SITEMAP_XML_CONTENT = """<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://portfolio-website-ten-lyart-11.vercel.app/</loc>
+    <loc>https://portfolio-website-hafiz-riaz.vercel.app/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
