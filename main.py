@@ -7,7 +7,7 @@ from datetime import datetime
 from typing import List, Optional
 from fastapi import FastAPI, Depends, HTTPException, status, Request, Header
 import secrets
-from fastapi.responses import FileResponse, StreamingResponse, Response
+from fastapi.responses import FileResponse, StreamingResponse, Response, RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
@@ -163,6 +163,20 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+CANONICAL_ORIGIN = "https://www.riazahmadhafizz.com"
+NON_CANONICAL_HOSTS = {"riazahmadhafizz.com", "portfolio-website-hafiz-riaz.vercel.app"}
+
+@app.middleware("http")
+async def redirect_to_canonical_host(request: Request, call_next):
+    """301 duplicate hosts (bare domain, old vercel.app URL) to the canonical www domain."""
+    req_host = (request.headers.get("host") or "").split(":")[0].lower()
+    if req_host in NON_CANONICAL_HOSTS:
+        target = CANONICAL_ORIGIN + request.url.path
+        if request.url.query:
+            target += "?" + request.url.query
+        return RedirectResponse(target, status_code=301)
+    return await call_next(request)
 
 @app.middleware("http")
 async def handle_cache_headers(request: Request, call_next):
@@ -786,13 +800,14 @@ Allow: /
 Allow: /static/
 Disallow: /api/
 
-Sitemap: https://portfolio-website-hafiz-riaz.vercel.app/sitemap.xml
+Sitemap: https://www.riazahmadhafizz.com/sitemap.xml
 """
 
 SITEMAP_XML_CONTENT = """<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://portfolio-website-hafiz-riaz.vercel.app/</loc>
+    <loc>https://www.riazahmadhafizz.com/</loc>
+    <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -854,6 +869,10 @@ def read_sitemap():
         if os.path.exists(candidate):
             return FileResponse(candidate, media_type="application/xml")
     return Response(content=SITEMAP_XML_CONTENT, media_type="application/xml")
+
+@app.get("/favicon.ico", include_in_schema=False)
+def read_favicon():
+    return FileResponse(os.path.join(static_dir, "images", "favicon-32.png"), media_type="image/png")
 
 if __name__ == "__main__":
     import uvicorn
