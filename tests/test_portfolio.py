@@ -43,11 +43,11 @@ class PortfolioSEOTestCase(unittest.TestCase):
         html = response.text
 
         # Canonical tag
-        expected_canonical = '<link rel="canonical" href="https://portfolio-website-hafiz-riaz.vercel.app/">'
+        expected_canonical = '<link rel="canonical" href="https://www.riazahmadhafizz.com/">'
         self.assertIn(expected_canonical, html)
 
         # OG URL
-        self.assertIn('<meta property="og:url" content="https://portfolio-website-hafiz-riaz.vercel.app/">', html)
+        self.assertIn('<meta property="og:url" content="https://www.riazahmadhafizz.com/">', html)
         self.assertIn('<meta property="og:title" content="Riaz Ahmad | AI Automation Engineer & Developer">', html)
         self.assertIn('meta property="og:image"', html)
 
@@ -126,7 +126,7 @@ class PortfolioSEOTestCase(unittest.TestCase):
         self.assertIn("Allow: /", body)
         self.assertIn("Allow: /static/", body)
         self.assertIn("Disallow: /api/", body)
-        self.assertIn("Sitemap: https://portfolio-website-hafiz-riaz.vercel.app/sitemap.xml", body)
+        self.assertIn("Sitemap: https://www.riazahmadhafizz.com/sitemap.xml", body)
 
     def test_sitemap_xml(self):
         """Test /sitemap.xml endpoint and XML structure."""
@@ -138,7 +138,7 @@ class PortfolioSEOTestCase(unittest.TestCase):
         root = ET.fromstring(response.text)
         namespaces = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
         locs = [loc.text for loc in root.findall(".//s:loc", namespaces)]
-        self.assertIn("https://portfolio-website-hafiz-riaz.vercel.app/", locs)
+        self.assertIn("https://www.riazahmadhafizz.com/", locs)
 
     def test_projects_api_endpoint(self):
         """Test /api/projects returns the 5 seeded projects with correct schemas."""

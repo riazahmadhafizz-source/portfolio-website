@@ -3,4 +3,4 @@ Allow: /
 Allow: /static/
 Disallow: /api/
 
-Sitemap: https://portfolio-website-hafiz-riaz.vercel.app/sitemap.xml
+Sitemap: https://www.riazahmadhafizz.com/sitemap.xml
