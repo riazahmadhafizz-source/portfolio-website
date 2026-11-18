@@ -641,6 +641,7 @@
           <button type="button" aria-pressed="false" data-filter="agents">AI agents</button>
           <button type="button" aria-pressed="false" data-filter="leads">Lead generation</button>
           <button type="button" aria-pressed="false" data-filter="workflow">Workflow automation</button>
+          <button type="button" aria-pressed="false" data-filter="web">Websites</button>
         </div>
 
         <div class="projects">
@@ -653,7 +654,7 @@
               <p class="stack"><b>Stack:</b> Next.js, TypeScript, Prisma, SQLite, Gemini, Google Sheets, Slack</p>
               <div class="actions">
                 <button class="btn btn-primary" type="button" data-open="agency">How it works</button>
-                <a class="btn btn-glass" href="https://ai-agency-operating-system-gamma.vercel.app" target="_blank" rel="noopener">Live demo</a>
+                <a class="btn btn-glass" href="https://ai-agency-operating-system-kappa.vercel.app" target="_blank" rel="noopener">Live demo</a>
                 <a class="btn btn-glass" href="https://github.com/riazahmadhafizz-source/AI-agency-operating-system" target="_blank" rel="noopener">Source code</a>
               </div>
             </div>
@@ -672,7 +673,7 @@
             <p class="stack"><b>Stack:</b> Python, FastAPI, Playwright, Gemini, HubSpot API</p>
             <div class="actions">
               <button class="btn btn-primary" type="button" data-open="leads">How it works</button>
-              <a class="btn btn-glass" href="https://ai-lead-intelligence-system.vercel.app" target="_blank" rel="noopener">Live demo</a>
+              <a class="btn btn-glass" href="https://ai-lead-intelligence-system-lemon.vercel.app" target="_blank" rel="noopener">Live demo</a>
               <a class="btn btn-glass" href="https://github.com/riazahmadhafizz-source/ai-lead-intelligence-system" target="_blank" rel="noopener">Source code</a>
             </div>
           </article>
@@ -685,19 +686,20 @@
             <p class="stack"><b>Stack:</b> JavaScript, Node.js, Gemini</p>
             <div class="actions">
               <button class="btn btn-primary" type="button" data-open="chat">How it works</button>
-              <a class="btn btn-glass" href="https://chat-bot-chi-wine.vercel.app" target="_blank" rel="noopener">Live demo</a>
+              <a class="btn btn-glass" href="https://chat-bot-rouge-zeta.vercel.app" target="_blank" rel="noopener">Live demo</a>
               <a class="btn btn-glass" href="https://github.com/riazahmadhafizz-source/chat-bot" target="_blank" rel="noopener">Source code</a>
             </div>
           </article>
 
           <article class="project glass lit" data-cat="workflow" data-id="onboarding">
-            <div class="project-top"><span class="tag">Workflow automation</span><span class="badge code">Source code</span></div>
+            <div class="project-top"><span class="tag">Workflow automation</span><span class="badge live">Live demo</span></div>
             <h3>Onboarding Automation Workflow</h3>
             <p>A new Typeform submission creates the client's profile in Google Sheets, sets up their workspace and notifies the team in Slack, with no manual data entry.</p>
             <ul class="flow" aria-label="How it works"><li>Typeform</li><li>Google Sheets</li><li>Workspace</li><li>Slack</li></ul>
             <p class="stack"><b>Stack:</b> Python, APScheduler, Google Sheets API, Slack webhooks</p>
             <div class="actions">
               <button class="btn btn-primary" type="button" data-open="onboarding">How it works</button>
+              <a class="btn btn-glass" href="https://onboarding-automation-system-six.vercel.app" target="_blank" rel="noopener">Live demo</a>
               <a class="btn btn-glass" href="https://github.com/riazahmadhafizz-source/onboarding-automation-system" target="_blank" rel="noopener">Source code</a>
             </div>
           </article>
@@ -710,8 +712,21 @@
             <p class="stack"><b>Stack:</b> JavaScript, Python, REST APIs</p>
             <div class="actions">
               <button class="btn btn-primary" type="button" data-open="marketing">How it works</button>
-              <a class="btn btn-glass" href="https://digital-marketing-sand.vercel.app" target="_blank" rel="noopener">Live demo</a>
+              <a class="btn btn-glass" href="https://digital-marketing-pi-ashen.vercel.app" target="_blank" rel="noopener">Live demo</a>
               <a class="btn btn-glass" href="https://github.com/riazahmadhafizz-source/digital-marketing" target="_blank" rel="noopener">Source code</a>
+            </div>
+          </article>
+
+          <article class="project glass lit" data-cat="web" data-id="brand">
+            <div class="project-top"><span class="tag">Website</span><span class="badge live">Live demo</span></div>
+            <h3>Personal Brand &amp; Portfolio Website</h3>
+            <p>A mobile-first personal brand site with a filterable portfolio, services pages, a validated contact form and light and dark themes, built to WCAG 2.2 AA.</p>
+            <ul class="flow" aria-label="How it works"><li>Home</li><li>Portfolio</li><li>Services</li><li>Contact</li></ul>
+            <p class="stack"><b>Stack:</b> React, TypeScript, Vite, Tailwind CSS, Framer Motion</p>
+            <div class="actions">
+              <button class="btn btn-primary" type="button" data-open="brand">How it works</button>
+              <a class="btn btn-glass" href="https://hafiz-riaz-website-khaki.vercel.app" target="_blank" rel="noopener">Live demo</a>
+              <a class="btn btn-glass" href="https://github.com/riazahmadhafizz-source/hafiz-riaz-website" target="_blank" rel="noopener">Source code</a>
             </div>
           </article>
         </div>
@@ -876,35 +891,42 @@
         problem: 'Agencies lose deals between the first inquiry and the proposal: leads go unscored, proposals take days, and nobody can see where revenue came from.',
         steps: ['A new lead enters the pipeline from a form or webhook.', 'It is scored on budget, authority, need and timeline (BANT).', 'Gemini drafts a tailored proposal for qualified leads.', 'The proposal waits at a human approval gate before anything is sent.', 'Each stage is written to Google Sheets as an audit log, and the team is notified in Slack.'],
         stack: 'Next.js, TypeScript, Prisma, SQLite, Gemini, Google Sheets, Slack',
-        live: 'https://ai-agency-operating-system-gamma.vercel.app', code: GH + 'AI-agency-operating-system'
+        live: 'https://ai-agency-operating-system-kappa.vercel.app', code: GH + 'AI-agency-operating-system'
       },
       leads: {
         tag: 'Lead generation', title: 'AI Lead Intelligence System',
         problem: 'Researching B2B prospects by hand takes hours per lead and the data ends up scattered across tabs and spreadsheets.',
         steps: ['Define the target profile: industry, role and location.', 'Playwright gathers public information about matching founders and executives.', 'Gemini summarises each prospect and scores how well they fit.', 'Enriched profiles are created in HubSpot automatically.', 'The team gets a Slack alert for every high-fit prospect.'],
         stack: 'Python, FastAPI, Playwright, Gemini, HubSpot API, Slack webhooks',
-        live: 'https://ai-lead-intelligence-system.vercel.app', code: GH + 'ai-lead-intelligence-system'
+        live: 'https://ai-lead-intelligence-system-lemon.vercel.app', code: GH + 'ai-lead-intelligence-system'
       },
       chat: {
         tag: 'AI agent', title: 'Autonomous AI Conversational Agent',
         problem: 'Visitors ask the same questions at all hours, and a generic chatbot either makes things up or gives up too early.',
         steps: ['The visitor asks a question in the chat window.', 'Relevant answers are pulled from the business knowledge base.', 'Gemini writes a reply using that context and the conversation so far.', 'The reply is validated before it is shown.', 'If the agent is not confident, it falls back to a safe answer and offers a human contact.'],
         stack: 'JavaScript, Node.js, Gemini',
-        live: 'https://chat-bot-chi-wine.vercel.app', code: GH + 'chat-bot'
+        live: 'https://chat-bot-rouge-zeta.vercel.app', code: GH + 'chat-bot'
       },
       onboarding: {
         tag: 'Workflow automation', title: 'Onboarding Automation Workflow',
         problem: 'Every new client meant copying form answers into sheets, setting up folders and messaging the team by hand.',
         steps: ['A client submits the onboarding Typeform.', 'Their details are added to the client register in Google Sheets.', 'A dedicated workspace is created for them.', 'The team gets a Slack notification with the key details.', 'Scheduled checks catch anything that failed and retry it.'],
         stack: 'Python, APScheduler, Google Sheets API, Slack webhooks',
-        live: null, code: GH + 'onboarding-automation-system'
+        live: 'https://onboarding-automation-system-six.vercel.app', code: GH + 'onboarding-automation-system'
       },
       marketing: {
         tag: 'Workflow automation', title: 'Digital Marketing Automation Suite',
         problem: 'Campaign pages, lead capture and follow-up data lived in separate tools that never talked to each other.',
         steps: ['Visitors land on an interactive campaign site.', 'Their actions and form entries go to a serverless API.', 'The lead pipeline cleans and stores the data.', 'Marketing gets one consistent view of every lead.'],
         stack: 'JavaScript, Python, REST APIs',
-        live: 'https://digital-marketing-sand.vercel.app', code: GH + 'digital-marketing'
+        live: 'https://digital-marketing-pi-ashen.vercel.app', code: GH + 'digital-marketing'
+      },
+      brand: {
+        tag: 'Website', title: 'Personal Brand & Portfolio Website',
+        problem: 'A personal brand needs a site that loads fast, reads well on every screen and turns visitors into enquiries, without relying on a page builder.',
+        steps: ['Pages are built as reusable React components with TypeScript.', 'Layouts are designed mobile-first, then adapt for tablet, laptop and wide screens.', 'The portfolio can be filtered by category and searched by keyword.', 'The contact form validates every field before it is sent.', 'Accessibility, SEO metadata and security headers are set up before launch.'],
+        stack: 'React, TypeScript, Vite, Tailwind CSS, Framer Motion, Vitest',
+        live: 'https://hafiz-riaz-website-khaki.vercel.app', code: GH + 'hafiz-riaz-website'
       }
     };
     const dlg = document.getElementById('detail');
